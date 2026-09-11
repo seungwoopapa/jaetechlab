@@ -278,7 +278,7 @@ def build_meta():
     entries += "".join(f"<url><loc>{esc(url_for('/' + p['slug'] + '/'))}</loc><lastmod>{p['modified'] or p['published']}</lastmod></url>" for p in POSTS)
     (SITE / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>', encoding="utf-8")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {url_for('/sitemap.xml')}\n", encoding="utf-8")
-    (SITE / "CNAME").write_text(CONF["domain"] + "\n", encoding="utf-8")
+    (SITE / "CNAME").write_text(CONF["domain"], encoding="utf-8")
     (SITE / ".nojekyll").write_text("", encoding="utf-8")
     if CONF.get("adsense_client"):
         pub = CONF["adsense_client"].replace("ca-", "")
