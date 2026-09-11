@@ -8,6 +8,7 @@ import html
 import json
 import re
 import shutil
+import struct
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -114,6 +115,52 @@ def layout(title, body, *, description="", path="/", og_type="website", og_image
 """
 
 
+def image_size(path):
+    """외부 패키지 없이 PNG/JPEG/WEBP/GIF 의 (가로, 세로) 를 읽는다. 실패하면 (0, 0)."""
+    try:
+        data = Path(path).read_bytes()
+    except OSError:
+        return (0, 0)
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return struct.unpack(">II", data[16:24])
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return struct.unpack("<HH", data[6:10])
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        kind = data[12:16]
+        if kind == b"VP8X":
+            return (int.from_bytes(data[24:27], "little") + 1, int.from_bytes(data[27:30], "little") + 1)
+        if kind == b"VP8 ":
+            return (struct.unpack("<H", data[26:28])[0] & 0x3FFF, struct.unpack("<H", data[28:30])[0] & 0x3FFF)
+        if kind == b"VP8L":
+            n = int.from_bytes(data[21:25], "little")
+            return ((n & 0x3FFF) + 1, ((n >> 14) & 0x3FFF) + 1)
+        return (0, 0)
+    if data[:2] == b"\xff\xd8":
+        i = 2
+        while i < len(data) - 9:
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker = data[i + 1]
+            if marker in (0xD8, 0x01) or 0xD0 <= marker <= 0xD7:
+                i += 2
+                continue
+            if 0xC0 <= marker <= 0xCF and marker not in (0xC4, 0xC8, 0xCC):
+                h, w = struct.unpack(">HH", data[i + 5:i + 9])
+                return (w, h)
+            i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    return (0, 0)
+
+
+def thumb_is_contain(path):
+    """정사각 썸네일 칸에 넣었을 때 잘라내면 안 되는(가로로 길거나 세로로 긴) 이미지인지."""
+    w, h = image_size(path)
+    if not w or not h:
+        return False
+    ratio = w / h
+    return ratio >= 2.0 or ratio <= 0.65
+
+
 # ---------- 본문 후처리 ----------
 def fix_body(body):
     existing = {p.name for p in (SITE / "images").glob("*")} if (SITE / "images").exists() else set()
@@ -148,7 +195,11 @@ def fix_body(body):
 
 
 def post_card(p):
-    thumb = f'<img src="{p["featured"]}" alt="" loading="lazy">' if p.get("featured_ok") else '<span class="thumb-placeholder">₩</span>'
+    if p.get("featured_ok"):
+        cls = ' class="fit-contain"' if p.get("thumb_contain") else ""
+        thumb = f'<img src="{p["featured"]}"{cls} alt="" loading="lazy">'
+    else:
+        thumb = '<span class="thumb-placeholder">₩</span>'
     return f"""<li class="card">
   <a class="card-thumb" href="/{esc(p['slug'])}/">{thumb}</a>
   <div class="card-body">
@@ -303,6 +354,7 @@ def main():
     existing = {p.name for p in (SITE / "images").glob("*")}
     for p in POSTS:
         p["featured_ok"] = bool(p["featured"]) and p["featured"].split("/")[-1] in existing
+        p["thumb_contain"] = p["featured_ok"] and thumb_is_contain(SITE / p["featured"].lstrip("/"))
     for i, p in enumerate(POSTS):
         build_post(i, p)
     build_home()
