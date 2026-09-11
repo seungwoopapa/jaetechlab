@@ -54,6 +54,9 @@ def layout(title, body, *, description="", path="/", og_type="website", og_image
     for slug, name in CATS:
         cur = ' aria-current="page"' if path.startswith(f"/category/{slug}/") else ""
         nav += f'<li><a href="/category/{slug}/"{cur}>{name}</a></li>'
+    verify = ""
+    if CONF.get("google_site_verification"):
+        verify = f'<meta name="google-site-verification" content="{CONF["google_site_verification"]}">\n'
     adsense = ""
     if CONF.get("adsense_client"):
         adsense = (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={CONF["adsense_client"]}" '
@@ -69,7 +72,7 @@ def layout(title, body, *, description="", path="/", og_type="website", og_image
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(description or CONF['tagline'])}">
 {'<meta name="robots" content="noindex">' if noindex else ''}
-<link rel="canonical" href="{esc(url_for(path))}">
+{verify}<link rel="canonical" href="{esc(url_for(path))}">
 <link rel="alternate" type="application/rss+xml" title="{esc(CONF['site_name'])}" href="/feed.xml">
 <meta property="og:site_name" content="{esc(CONF['site_name'])}">
 <meta property="og:type" content="{og_type}">
