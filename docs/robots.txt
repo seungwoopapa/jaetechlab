@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jaetechlab.com/sitemap.xml

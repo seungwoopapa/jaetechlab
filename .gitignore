@@ -1,0 +1,5 @@
+bin/
+.claude/
+__pycache__/
+.DS_Store
+content/images_status.json

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PER 계산으로 적정주가 판단하기 – 실전편 | 머니 가이드</title>
+<meta name="description" content="SK텔레콤의 실제 사례를 통해서 어떻게 PER을 계산하는지 자세하게 알아보겠습니다. (1)추정 PER을 구하는 법 (2) 동종업계 PER 확인 (3) 과거 PER 수준 확인하는 방법등을 살펴보고, 이를 통해 현재 주가의 적정성을 판단해보도록 하겠습니다.">
+
+<link rel="canonical" href="https://jaetechlab.com/per-계산/">
+<link rel="alternate" type="application/rss+xml" title="머니 가이드" href="/feed.xml">
+<meta property="og:site_name" content="머니 가이드">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PER 계산으로 적정주가 판단하기 – 실전편">
+<meta property="og:description" content="SK텔레콤의 실제 사례를 통해서 어떻게 PER을 계산하는지 자세하게 알아보겠습니다. (1)추정 PER을 구하는 법 (2) 동종업계 PER 확인 (3) 과거 PER 수준 확인하는 방법등을 살펴보고, 이를 통해 현재 주가의 적정성을 판단해보도록 하겠습니다.">
+<meta property="og:url" content="https://jaetechlab.com/per-계산/">
+<meta property="og:image" content="https://jaetechlab.com/images/og-default.png">
+<meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8336147776969406" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PER 계산으로 적정주가 판단하기 – 실전편", "description": "SK텔레콤의 실제 사례를 통해서 어떻게 PER을 계산하는지 자세하게 알아보겠습니다. (1)추정 PER을 구하는 법 (2) 동종업계 PER 확인 (3) 과거 PER 수준 확인하는 방법등을 살펴보고, 이를 통해 현재 주가의 적정성을 판단해보도록 하겠습니다.", "datePublished": "2020-07-21", "dateModified": "2021-07-15", "author": {"@type": "Person", "name": "머니 가이드 운영자"}, "publisher": {"@type": "Organization", "name": "머니 가이드"}, "mainEntityOfPage": "https://jaetechlab.com/per-계산/", "articleSection": "주식투자"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="brand-mark">₩</span> 머니 가이드</a>
+    <p class="tagline">재테크 초보 직장인의 경제 이야기 — 주식·ETF·대출·부동산을 직접 공부하며 정리합니다</p>
+    <nav class="nav" aria-label="주요 메뉴">
+      <ul>
+        <li><a href="/">홈</a></li>
+        <li><a href="/category/stock-invest/">주식투자</a></li><li><a href="/category/loan/">대출</a></li><li><a href="/category/real-estate/">부동산</a></li><li><a href="/category/tax/">세금</a></li><li><a href="/category/book-review/">도서리뷰</a></li><li><a href="/category/etc/">기타</a></li>
+        <li><a href="/archive/">연도별</a></li>
+        <li><a href="/about/">소개</a></li>
+        <li><a href="/contact/">문의</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<article class="post">
+  <header class="post-header">
+    <div class="meta"><a class="cat" href="/category/stock-invest/">주식투자</a><time datetime="2020-07-21">2020년 7월 21일</time></div>
+    <h1>PER 계산으로 적정주가 판단하기 – 실전편</h1>
+  </header>
+  <aside class="notice"><strong>작성일 2020년 7월 21일</strong> · 최종 수정 2021년 7월 15일<br>이 글의 금융 제도·금리·한도·수치는 <b>2020년 작성 시점 기준</b>입니다. 현재 기준과 다를 수 있으니 실제 결정 전에는 해당 기관의 최신 안내를 확인해 주세요.</aside>
+  <div class="post-body">
+<p>지난 포스팅에서 PER · PBR · ROE 에 대해 알아봤습니다. 오늘은 그중에서 적정 주가를 판단하는 가장 대표적인 지표인 PER 계산하는 방법을 알아보겠습니다. SK텔레콤 실제사례를 통해 <strong>① 추정 PER을 구한 다음, ② 경쟁업체와의 비교하고, ③ 과거 추세를 확인</strong>하여 현재 주가가 적정한지 여부를 판단해보도록 하겠습니다.</p>
+
+<p><strong>◎ 관련 포스팅 : <a href="/주식-가치/" target="_blank" rel="noopener">주식 가치 평가를 위해 반드시 알아야 할 3가지</a></strong></p>
+
+<h2><span id="1_%EC%B6%94%EC%A0%95_PER_%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0"></span>1. 추정 PER 계산하기</h2>
+
+<p>가장 먼저 해야할 일은 추정 PER을 계산하는 것입니다. PER은 기업의 당기순이익과 시가총액을 알면 구할 수 있습니다(구하는 식은 위 포스팅 참고). 그런데 당기순이익은 전년도말 기준으로 공시되어 있습니다. </p>
+
+<p>따라서 최근분기에 발표된 실적을 연간으로 환산한다면, 좀 더 최신의 PER을 구할 수 있습니다. 또한 증권사의 리포트나 뉴스 등을 확인해서 실적개선 내용을 반영할 수도 있을 겁니다.</p>
+
+<p>굳이 계산하기 귀찮으면 네이버증권에서 공시하는 예상 PER을 이용하는 방법이 있습니다. 네이버증권에서 개별종목 검색 후 &#8216;종목분석-컨센서스&#8217; 를 차례로 클릭하면 전문가들이 예측한 추정 PER을 확인할 수 있습니다. 아래는 SK텔레콤을 검색해 본 결과입니다.</p>
+
+
+
+<p>SK텔레콤의 경우 19년말 기준으로 계산하니 PER이 21.59로 상당히 고평가된 상태입니다. 영업이익이 작년에 큰 폭으로 줄어서 검색을 해보니, 5G 마케팅 비용 등 일시적 요인인걸 알 수 있습니다. &#8216;SK텔레콤 4분기&#8217;로 구글에 검색하니 바로 다음과 같은 기사가 나오네요.</p>
+
+<p><a href="https://biz.chosun.com/site/data/html_dir/2020/02/07/2020020700694.html" target="_blank" rel="noopener">SK텔레콤, 4분기 &#8216;적자전환&#8217; 연매출은 최대&#8230; &#8220;올해 5G 가입자 700만명 전망&#8221;(종합)  [2020.2.7 조선비즈 박원익] </a></p>
+
+<p>5G 관련 투자가 마무리되어 올해 매출과 영업이익이 증가세로 돌아설 것 같습니다. 그 경우 현재 주가의 PER을 12.24배 정도로 전문가들은 예상하고 있습니다. 참고로 위 표의 (E)는 전문가들 예상치의 평균값입니다.</p>
+
+<p>참고로 PER을 보수적으로 평가하려면, CB(전환사채)나 BW(신주인수권부사채) 존재여부를 확인해봐야 합니다. 이것들은 현재는 채권이지만, 향후 주식으로 바뀔 수 있는 특징이 있습니다. 향후 전체 주식수가 늘어나 주가 하락요인이 될 수 있습니다. </p>
+
+<p><strong>※ CB(전환사채) : 발행할 때는 회사채(채권)이지만, 주식으로 바꿀 수 있음.</strong><br><strong><br>※ BW (신주인수권부사채): CB가 &#8216;채권&#8217;을 &#8216;주식&#8217;으로 바꾸는 거라면, BW는 &#8216;채권&#8217;은 그대로 보유한채 &#8216;신주&#8217;를 추가로 살 수 있는 권리를 갖는 것.</strong></p>
+
+<p>CB나 BW는 일반적으로 회사채를 발행해서는 자금조달이 어려운 부실기업들이 발행하는 경우가 많습니다. 최근에 발행이력이 있으면 가급적 투자하지 않는 편이 낫죠. 유상증자도 주가를 하락시키는 큰 요인이기 때문에, 최근 주식수의 변경여부를 체크할 필요가 있습니다. </p>
+
+
+
+<p>사채발행이나 유상증자 발행이력은 <a href="http://dart.fss.or.kr/" target="_blank" rel="noopener">전자공시시스템</a>에 들어가면 상세하게 확인할 수 있습니다. ① 통합검색으로 들어가 &#8216;유상증자&#8217; 입력하고, ② 궁금한 기업이름 입력후 조회하면 됩니다.</p>
+
+<p><strong>「유상증자 또는 주식관련사채 등의 발행결과 (자율공시)」</strong> 라고 공시되어 있는 제목이 있으면 클릭해서 확인해볼 수 있습니다. 대한항공을 예시로 검색해 보았습니다.</p>
+
+
+
+<h2><span id="2_%EA%B3%84%EC%82%B0%EB%90%9C_PER_%EA%B2%BD%EC%9F%81%EC%97%85%EC%B2%B4%EC%99%80_%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0"></span>2. 계산된 PER 경쟁업체와 비교하기</h2>
+
+<p>PER은 상대적인 지표이기 때문에 경쟁업체의 PER과 비교해보는 것이 중요합니다.  흔히들 적정 PER을 12배 전후로 말하지만, 업종의 성격에 따라 다른 경우가 많습니다. </p>
+
+<p>성장주 같은 경우는 50배가 넘는 경우도 종종 보입니다. 유동성이 풍부한 장에서는 PER이 전반적으로 높게 형성되기도 합니다. 따라서 동종업계의 PER과 비교해서 주가의 적정성을 판단해볼 필요가 있습니다.</p>
+
+
+
+<p>한가지 주의할 점은 포털에 조회되는 업종PER 수치와 직접 비교하는 것은 조심해야 한다는 겁니다. SK텔레콤 같은 경우 크게 상관없는 &#8216;전파기지국&#8217;이나 &#8216;신라섬유&#8217;의 PER이 포함되어 있어, 업종 PER이 다소 뻥튀기 돼있습니다. 업종선택을 바꿔보면서 실질적인 경쟁업체와 비교해봐야 합니다.</p>
+
+
+
+<p>SK텔레콤의 실질 경쟁업체인 KT와 LG유플러스의 PER이 각각 11.39배, 14.13배로 확인됩니다. 위에서 확인된 SK텔레콤의 추정 PER이 12.24배였으므로 현재 경쟁업체 대비 주가는 적정수준으로 판단할 수 있을 것 같습니다.</p>
+
+<h2><span id="3_%ED%95%B4%EB%8B%B9_%EC%A2%85%EB%AA%A9_%EA%B3%BC%EA%B1%B0_PER_%EC%88%98%EC%A4%80_%ED%99%95%EC%9D%B8"></span>3. 해당 종목 과거 PER 수준 확인</h2>
+
+<p>마지막 단계는 기업의 과거 PER 수준을 확인해보는 것입니다. 이것도 마찬가지로 네이버증권에서 확인이 가능합니다. 다만 5년치 자료밖에 확인할 수 없습니다.</p>
+
+<p>따라서 좀 더 긴 기간을 확인하고 싶으면 증권사 HTS등을 활용해야 합니다. 아래는 키움증권 HTS에서 제공하는 재무차트 내용입니다. 모든 증권사가 유사하게 재무차트를 제공하고 있습니다.</p>
+
+
+
+<p>몇몇 특이한 구간은 확인할 필요가 있습니다. 우선 2012년과 2014년 사이 이익에 비해 과도하게 주가 상승이 있었습니다. 검색을 해보니, LTE 활성화 및 단통법 시행의 이벤트가 있었네요.</p>
+
+<p>그리고 2019년 이익이 너무 급감했습니다. 5G 투자 및 마케팅비용 때문이라고 하지만 감소폭이 너무 비정상적인 것 같아서 조금 더 찾아봤습니다.</p>
+
+<p><a href="https://www.thebell.co.kr/free/content/ArticleView.asp?key=201801290100056790003495&amp;lcode=00" target="_blank" rel="noopener"><strong>&#8216;역대 최대&#8217; 하이닉스 실적에 미소짓는 SK텔레콤</strong>  [2018-01-30 더벨 김일문]</a></p>
+
+<p>SK텔레콤은 하이닉스의 지분을 20% 가량 소유하고 있습니다. 하이닉스가 반도체 호황으로 18년과 19년에 엄청난 수익을 거둬서 SK텔레콤의 지분법 이익(18년 2조원 19년 3조원)을 더해줬습니다. 이것이 SK텔레콤의 18년~19년 PER 저평가의 원인으로 볼 수 있습니다.</p>
+
+<p>특수한 몇몇 구간을 제외하면 SK텔레콤의 PER은 20년간 대체적으로 10~12배 사이를 유지하고 있습니다. 따라서 현재 주가는 적정한 수준으로 판단됩니다.</p>
+
+<p><strong>※ SK텔레콤은 포스팅을 위한 예시일 뿐 투자권유의 목적은 전혀 없음을 밝힙니다.</strong> </p>
+  </div>
+  <footer class="post-footer">
+    <p>이 글은 머니 가이드 운영자가 직접 공부하며 정리한 내용입니다. 투자·대출 결정의 책임은 본인에게 있으며, 자세한 내용은 <a href="/disclaimer/">면책 고지</a>를 참고해 주세요.</p>
+  </footer>
+</article>
+<nav class="post-nav" aria-label="이전·다음 글"><a class="prev" href="/주식-가치/"><small>이전 글</small>주식 가치 평가를 위해 반드시 알아야 할 3가지</a><a class="next" href="/미국-etf-투자방법/"><small>다음 글</small>미국 ETF 투자방법 총정리</a></nav>
+<section class="related"><h2>같은 카테고리의 다른 글</h2><ul class="cards"><li class="card">
+  <a class="card-thumb" href="/주식-가치/"><span class="thumb-placeholder">₩</span></a>
+  <div class="card-body">
+    <div class="meta"><a class="cat" href="/category/stock-invest/">주식투자</a><time datetime="2020-07-18">2020년 7월 18일</time></div>
+    <h3><a href="/주식-가치/">주식 가치 평가를 위해 반드시 알아야 할 3가지</a></h3>
+    <p>주식 가치 평가를 위한 대표적인 3가지 지표에 대해 알아보겠습니다. PER, PBR, ROE가 무엇인지 그림 한장으로 누구나 쉽게 이해할 수 있습니다. 실제 예시를 통해 간편하게 계산할 수 있는 방…</p>
+  </div>
+</li><li class="card">
+  <a class="card-thumb" href="/미국-etf-투자방법/"><span class="thumb-placeholder">₩</span></a>
+  <div class="card-body">
+    <div class="meta"><a class="cat" href="/category/stock-invest/">주식투자</a><time datetime="2020-07-25">2020년 7월 25일</time></div>
+    <h3><a href="/미국-etf-투자방법/">미국 ETF 투자방법 총정리</a></h3>
+    <p>국내 ETF로 미국에 투자하는 방식과 미국 ETF에 직접 투자하는 방법에 대해 비교해보겠습니다. 실제 미국 ETF 투자방법 및 ETF 정보 검색하는 법을 살펴보고 미국주식 거래시간 · 수수료 · 세…</p>
+  </div>
+</li><li class="card">
+  <a class="card-thumb" href="/국내-etf/"><span class="thumb-placeholder">₩</span></a>
+  <div class="card-body">
+    <div class="meta"><a class="cat" href="/category/stock-invest/">주식투자</a><time datetime="2020-07-10">2020년 7월 10일</time></div>
+    <h3><a href="/국내-etf/">인기 국내 ETF 5개 : 내멋대로 선정</a></h3>
+    <p>많이 거래되는 국내 ETF 상품설명. 인기 국내 ETF 5개 소개 : (1) KODEX 200. (2) TIGER 코스닥 150 (3) KBSTAR 대형고배당10 TR (4) TIGER 2차전지테마…</p>
+  </div>
+</li></ul></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="사이트 정보">
+      <a href="/about/">소개</a> · <a href="/contact/">문의</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/disclaimer/">면책 고지</a> · <a href="/archive/">전체 글</a> · <a href="/feed.xml">RSS</a>
+    </nav>
+    <p>© 2020–2026 머니 가이드. 이 사이트의 글은 작성자의 개인적인 공부와 경험을 정리한 것으로, 특정 금융상품의 매수·매도를 권유하지 않습니다.</p>
+  </div>
+</footer>
+</body>
+</html>
