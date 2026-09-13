@@ -229,9 +229,16 @@ def build_post(i, p):
     next_p = POSTS[i + 1] if i + 1 < len(POSTS) else None
     related = [q for q in POSTS if q["category_slug"] == p["category_slug"] and q["slug"] != p["slug"]]
     related = sorted(related, key=lambda q: abs((datetime.fromisoformat(q["published"]) - datetime.fromisoformat(p["published"])).days))[:3]
+    # 갱신한 글에 "작성 시점 기준"이라고 쓰면 본문과 어긋난다.
+    # 2023년 글을 2026년 수치로 갱신해 놓고 "2023년 작성 시점 기준"이라 말하던 문제다.
+    updated = bool(p["modified"]) and p["modified"] != p["published"]
+    basis = p["modified"] if updated else p["published"]
+    basis_txt = f'{basis[:4]}년 {int(basis[5:7])}월 ' + ("기준" if updated else "작성 시점 기준")
+    basis_tail = "으로 갱신했습니다." if updated else "입니다."
+    meta_updated = f'<span class="updated"> · 갱신 {kdate(p["modified"])}</span>' if updated else ""
     notice = (f'<aside class="notice"><strong>작성일 {kdate(p["published"])}</strong>'
-              + (f' · 최종 수정 {kdate(p["modified"])}' if p["modified"] and p["modified"] != p["published"] else "")
-              + f'<br>이 글의 금융 제도·금리·한도·수치는 <b>{p["published"][:4]}년 작성 시점 기준</b>입니다. 현재 기준과 다를 수 있으니 실제 결정 전에는 해당 기관의 최신 안내를 확인해 주세요.</aside>')
+              + (f' · 최종 수정 {kdate(p["modified"])}' if updated else "")
+              + f'<br>이 글의 금융 제도·금리·한도·수치는 <b>{basis_txt}</b>{basis_tail} 현재 기준과 다를 수 있으니 실제 결정 전에는 해당 기관의 최신 안내를 확인해 주세요.</aside>')
     nav = '<nav class="post-nav" aria-label="이전·다음 글">'
     nav += f'<a class="prev" href="/{esc(prev_p["slug"])}/"><small>이전 글</small>{esc(prev_p["title"])}</a>' if prev_p else "<span></span>"
     nav += f'<a class="next" href="/{esc(next_p["slug"])}/"><small>다음 글</small>{esc(next_p["title"])}</a>' if next_p else "<span></span>"
@@ -241,7 +248,7 @@ def build_post(i, p):
         rel = '<section class="related"><h2>같은 카테고리의 다른 글</h2>' + post_list(related) + "</section>"
     body = f"""<article class="post">
   <header class="post-header">
-    <div class="meta"><a class="cat" href="/category/{p['category_slug']}/">{p['category']}</a><time datetime="{p['published']}">{kdate(p['published'])}</time></div>
+    <div class="meta"><a class="cat" href="/category/{p['category_slug']}/">{p['category']}</a><time datetime="{p['published']}">{kdate(p['published'])}</time>{meta_updated}</div>
     <h1>{esc(p['title'])}</h1>
   </header>
   {notice}
