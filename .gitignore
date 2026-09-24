@@ -1,5 +1,6 @@
 bin/
-.claude/
+.claude/*
+!.claude/settings.json
 __pycache__/
 .DS_Store
 content/images_status.json
