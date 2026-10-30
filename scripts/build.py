@@ -48,7 +48,7 @@ def url_for(path):
 
 
 # ---------- 레이아웃 ----------
-def layout(title, body, *, description="", path="/", og_type="website", og_image="", jsonld=None, noindex=False):
+def layout(title, body, *, description="", path="/", og_type="website", og_image="", jsonld=None, noindex=False, ads=True):
     full_title = CONF["site_name"] if path == "/" else f"{title} | {CONF['site_name']}"
     nav = ""
     for slug, name in CATS:
@@ -58,7 +58,8 @@ def layout(title, body, *, description="", path="/", og_type="website", og_image
     if CONF.get("google_site_verification"):
         verify = f'<meta name="google-site-verification" content="{CONF["google_site_verification"]}">\n'
     adsense = ""
-    if CONF.get("adsense_client"):
+    # 오류 페이지처럼 콘텐츠가 없는 화면에는 광고를 걸지 않는다(애드센스 인벤토리 가치 정책)
+    if ads and CONF.get("adsense_client"):
         adsense = (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={CONF["adsense_client"]}" '
                    f'crossorigin="anonymous"></script>')
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
@@ -310,7 +311,7 @@ def build_archive():
         posts = sorted([p for p in POSTS if p["published"].startswith(y)], key=lambda p: p["published"], reverse=True)
         items = "".join(f'<li><time datetime="{p["published"]}">{p["published"]}</time> <a href="/{esc(p["slug"])}/">{esc(p["title"])}</a> <span class="cat-inline">{p["category"]}</span></li>' for p in posts)
         sections += f'<section class="year"><h2 id="y{y}">{y}년 <small>{len(posts)}편</small></h2><ul class="plain-list">{items}</ul></section>'
-        ybody = f'<section class="archive-head"><h1>{y}년에 쓴 글</h1><p>총 {len(posts)}편. 모든 글은 작성 당시의 제도와 수치를 기준으로 합니다.</p></section>{post_list(posts)}'
+        ybody = f'<section class="archive-head"><h1>{y}년에 쓴 글</h1><p>총 {len(posts)}편. 수치는 작성 당시 기준이며, 최신 기준으로 고친 글은 글 상단에 최종 수정일과 기준 시점을 적었습니다.</p></section>{post_list(posts)}'
         write(f"/archive/{y}/", layout(f"{y}년 글", ybody, description=f"{CONF['site_name']}의 {y}년 글 {len(posts)}편", path=f"/archive/{y}/"))
     yearnav = " · ".join(f'<a href="/archive/{y}/">{y}년</a>' for y in years)
     body = f'<section class="archive-head"><h1>전체 글 목록</h1><p>연도별로 정리한 글 {len(POSTS)}편입니다. {yearnav}</p></section>{sections}'
@@ -327,7 +328,7 @@ def build_pages():
         desc = re.sub(r"<[^>]+>", "", re.search(r"<p>(.*?)</p>", raw, re.S).group(1)).strip()[:150]
         write(f"/{page}/", layout(title, f'<article class="page">{raw}</article>', description=desc, path=f"/{page}/"))
     body = '<article class="page"><h1>페이지를 찾을 수 없습니다</h1><p>주소가 바뀌었거나 삭제된 글입니다. <a href="/">홈</a>이나 <a href="/archive/">전체 글 목록</a>에서 찾아보세요.</p></article>'
-    (SITE / "404.html").write_text(layout("페이지를 찾을 수 없습니다", body, path="/404.html", noindex=True), encoding="utf-8")
+    (SITE / "404.html").write_text(layout("페이지를 찾을 수 없습니다", body, path="/404.html", noindex=True, ads=False), encoding="utf-8")
 
 
 def build_meta():
